@@ -7,8 +7,6 @@ using PLM_System.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddLogging(builder => builder.AddConsole());
-
 builder.Services.AddAuthentication(options =>
         {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -23,12 +21,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("PLM_System"));
 });
 
-// Добавьте логирование для вашего DbContext
+//логирование для DbContext
 builder.Services.AddLogging(logging =>
 {
     logging.AddConsole();
     logging.AddDebug();
-    logging.AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information); // Уровень логирования можно настроить по вашему выбору
+    logging.AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information); // Уровень логирования 
 });
 
 builder.Services.AddIdentity<Person, IdentityRole>(options =>

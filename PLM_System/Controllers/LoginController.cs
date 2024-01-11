@@ -34,7 +34,7 @@ namespace PLM_System.Controllers
         }
 
         /// <summary>
-        /// https://localhost:5001/api/login/authenticate?Email=test@test.ru&Password=yourpassword
+        /// https://localhost:5001/api/login/authenticate?Email=test@test.ru&Password=yourpasswordA
         /// </summary>
         /// <param name="model"></param>
         /// Аутентификация
