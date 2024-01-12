@@ -41,6 +41,8 @@ builder.Services.AddIdentity<Person, IdentityRole>(options =>
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddControllers();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 app.UseRouting();
@@ -59,17 +61,3 @@ app.Use(async (context, next) =>
 app.UseEndpoints(endpoints =>endpoints.MapControllers());
 
 app.Run();
-public class MyService
-{
-    private readonly ILogger<MyService> _logger;
-
-    public MyService(ILogger<MyService> logger)
-    {
-        _logger = logger;
-    }
-
-    public void DoSomething()
-    {
-        _logger.LogInformation("Doing something...");
-    }
-}

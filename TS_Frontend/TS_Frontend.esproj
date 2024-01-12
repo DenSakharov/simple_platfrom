@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
+	<PropertyGroup>
+	<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+	<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+	<TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+	<TypeScriptSourceMap>true</TypeScriptSourceMap>
+		</PropertyGroup>
+</Project>

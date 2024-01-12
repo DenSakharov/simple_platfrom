@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { useState } from 'react';
-
-export default function Authentication() {
-    // РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РєРѕРЅС‚РµРєСЃС‚Р° СЃРµСЂРІРёСЃР° Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёРё
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios'
+export default function App() {
+    // использование контекста сервиса аутентификации
     const [isAuthenticated, setAuthenticated] = useState(false);
 
     const [login, setLogin] = useState('');
@@ -11,21 +11,21 @@ export default function Authentication() {
     const [loading, setLoading] = useState(false);
     const [token, setToken] = useState('');
     const logoutUser = () => {
-        // Р РµР°Р»РёР·СѓР№С‚Рµ С„СѓРЅРєС†РёСЋ РґР»СЏ РІС‹С…РѕРґР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
-        // Р­С‚Рѕ РјРѕР¶РµС‚ РІРєР»СЋС‡Р°С‚СЊ РІ СЃРµР±СЏ РІС‹Р·РѕРІ СЃРµСЂРІРёСЃР° Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёРё РґР»СЏ СЂР°Р·СЂСѓС€РµРЅРёСЏ С‚РѕРєРµРЅР°
+        // Реализуйте функцию для выхода пользователя
+        // Это может включать в себя вызов сервиса аутентификации для разрушения токена
         setAuthenticated(false);
     };
 
     const setExpired = () => {
-        // Р РµР°Р»РёР·СѓР№С‚Рµ С„СѓРЅРєС†РёСЋ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё РёСЃС‚РµРєС€РµРіРѕ С‚РѕРєРµРЅР°
-        // РњРѕР¶РµС‚ РїРѕС‚СЂРµР±РѕРІР°С‚СЊСЃСЏ РІС‹Р·РѕРІ СЃРµСЂРІРёСЃР° Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёРё СЃ РѕРїСЂРµРґРµР»РµРЅРЅС‹Рј С‚РѕРєРµРЅРѕРј
+        // Реализуйте функцию для установки истекшего токена
+        // Может потребоваться вызов сервиса аутентификации с определенным токеном
     };
 
     const sendLoginData = async () => {
         try {
             setLoading(true);
 
-            // РСЃРїРѕР»СЊР·СѓР№С‚Рµ axios РґР»СЏ РѕС‚РїСЂР°РІРєРё Р·Р°РїСЂРѕСЃР°
+            // Используйте axios для отправки запроса
             const response = await axios.get('https://localhost:5001/api/login/authenticate', {
                 params: {
                     Email: 'test@test.ru',
@@ -33,12 +33,12 @@ export default function Authentication() {
                 },
             });
 
-            
+
             setToken(response.data.Token);
-            // РЈСЃС‚Р°РЅРѕРІРёС‚Рµ С„Р»Р°Рі Р°СѓС‚РµРЅС‚РёС„РёРєР°С†РёРё
+            // Установите флаг аутентификации
             setAuthenticated(true);
         } catch (error) {
-            console.error('РћС€РёР±РєР° РІС…РѕРґР°:', error);
+            console.error('Ошибка входа:', error);
         } finally {
             setLoading(false);
         }
@@ -48,14 +48,14 @@ export default function Authentication() {
         try {
             setLoading(true);
 
-            // Р РµР°Р»РёР·СѓР№С‚Рµ С„СѓРЅРєС†РёСЋ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С… СЃ СЃРµСЂРІРµСЂР°
+            // Реализуйте функцию для получения данных с сервера
             //const response = await authService.getData();
 
-            //// Р’Р°С€ РєРѕРґ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РѕС‚РІРµС‚Р° РѕС‚ СЃРµСЂРІРµСЂР°
+            //// Ваш код для обработки ответа от сервера
             setData("test");
 
         } catch (error) {
-            console.error('РћС€РёР±РєР° РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…:', error);
+            console.error('Ошибка получения данных:', error);
         } finally {
             setLoading(false);
         }
@@ -66,7 +66,7 @@ export default function Authentication() {
                 isAuthenticated
                     ? (
                         <div>
-                            Р’С‹ РІРѕС€Р»Рё РІ СЃРёСЃС‚РµРјСѓ
+                            Вы вошли в систему
                             <br />
                             <br />
                             <button
@@ -76,31 +76,31 @@ export default function Authentication() {
                                 type="button"
                                 onClick={logoutUser}
                             >
-                                Р’С‹Р№С‚Рё
+                                Выйти
                             </button>
 
                             <button
                                 type="button"
                                 onClick={setExpired}
                             >
-                                РџСЂРѕСЃСЂРѕС‡РёС‚СЊ С‚РѕРєРµРЅ
+                                Просрочить токен
                             </button>
                             <br />
-                            РўРѕРєРµРЅ: {token}
+                            Токен: {token}
                         </div>
                     )
                     : (
                         <div>
-                            Р›РѕРіРёРЅ
+                            Логин
                             <br />
                             <input value={login} onChange={(e) => setLogin(e.target.value)} />
                             <br />
-                            РџР°СЂРѕР»СЊ
+                            Пароль
                             <br />
                             <input value={password} onChange={(e) => setPassword(e.target.value)} />
                             <br />
                             <br />
-                            <button type="button" onClick={sendLoginData}>Р’РѕР№С‚Рё</button>
+                            <button type="button" onClick={sendLoginData}>Войти</button>
                         </div>
                     )
             }
@@ -110,11 +110,11 @@ export default function Authentication() {
                 type="button"
                 onClick={getData}
             >
-                РџРѕР»СѓС‡РёС‚СЊ РґР°РЅРЅС‹Рµ
+                Получить данные
             </button>
             <br />
             <br />
-            {loading ? 'Р—Р°РіСЂСѓР·РєР°...' : data}
+            {loading ? 'Загрузка...' : data}
         </div>
     );
 }

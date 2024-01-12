@@ -5,9 +5,11 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PLM_System", "PLM_System\PLM_System.csproj", "{82A8D50E-C328-4BC2-951B-2487E19E9669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models_Library", "Models_Library\Models_Library.csproj", "{1625606A-1C84-4AFB-838E-CB91FEC13BD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models_Library", "Models_Library\Models_Library.csproj", "{1625606A-1C84-4AFB-838E-CB91FEC13BD2}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "frontend", "Frontend\frontend.esproj", "{86A1D99F-24D6-48F6-AFCB-CE94F9A42630}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "TS_Frontend", "TS_Frontend\TS_Frontend.esproj", "{76A26F6C-B7C9-44E9-B6A3-8568B8A2CC7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,12 @@ Global
 		{86A1D99F-24D6-48F6-AFCB-CE94F9A42630}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86A1D99F-24D6-48F6-AFCB-CE94F9A42630}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86A1D99F-24D6-48F6-AFCB-CE94F9A42630}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{76A26F6C-B7C9-44E9-B6A3-8568B8A2CC7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76A26F6C-B7C9-44E9-B6A3-8568B8A2CC7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76A26F6C-B7C9-44E9-B6A3-8568B8A2CC7A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{76A26F6C-B7C9-44E9-B6A3-8568B8A2CC7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76A26F6C-B7C9-44E9-B6A3-8568B8A2CC7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76A26F6C-B7C9-44E9-B6A3-8568B8A2CC7A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
