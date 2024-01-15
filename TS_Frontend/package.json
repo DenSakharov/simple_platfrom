@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "vite --open",
+    "build": "vite build",
     "dev": "vite",
-    "build": "vite build"
+    "start": "vite ",
+    "_comment_to_start":"--open"
   },
   "keywords": [],
   "author": "",

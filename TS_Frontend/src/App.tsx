@@ -34,7 +34,7 @@ function App() {
             });
 
 
-            setToken(response.data.Token);
+            setToken(response.data);
             // Установите флаг аутентификации
             setAuthenticated(true);
         } catch (error) {
