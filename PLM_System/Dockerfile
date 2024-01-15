@@ -1,21 +1,23 @@
-# Use the official .NET SDK image for building
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
-WORKDIR /App
+# https://hub.docker.com/_/microsoft-dotnet
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
 
-# Copy the csproj and restore as distinct layers
-COPY PLM_System/*.csproj ./
+# copy csproj and restore as distinct layers
+COPY *.csproj ./
 RUN dotnet restore
 
-# Copy everything else and build
-COPY . ./
-WORKDIR /App/PLM_System
-RUN dotnet publish -c Release -o out --no-restore
+# Specify NuGet packages directory
+ENV NUGET_PACKAGES C:\\Users\\User\\.nuget\\packages
+# copy everything else and build app
+COPY . .
+RUN dotnet publish -c release -o /app --no-restore --packages C:\\Users\\User\\.nuget\\packages
 
 # Build the runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /App
-COPY --from=build-env /App/PLM_System/out .
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/out ./
 
-# Expose the port and run the application
+# Expose the port your application will run on
 EXPOSE 80
+
 ENTRYPOINT ["dotnet", "PLM_System.dll"]

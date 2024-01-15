@@ -2,9 +2,10 @@
   "name": "ts_frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
   "scripts": {
-    "start": "vite"
+    "start": "vite --open",
+    "dev": "vite",
+    "build": "vite build"
   },
   "keywords": [],
   "author": "",

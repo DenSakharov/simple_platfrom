@@ -1,8 +1,13 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
 	<PropertyGroup>
-	<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-	<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
-	<TypeScriptRemoveComments>false</TypeScriptRemoveComments>
-	<TypeScriptSourceMap>true</TypeScriptSourceMap>
-		</PropertyGroup>
+		<StartupCommand>npm run dev</StartupCommand>
+		<JavaScriptTestRoot>src\</JavaScriptTestRoot>
+		<JavaScriptTestFramework>Jest</JavaScriptTestFramework>
+		<!-- Allows the build (or compile) script located on package.json to run on Build -->
+		<ShouldRunBuildScript>true</ShouldRunBuildScript>
+		<!-- Folder where production build objects will be placed -->
+		<PublishAssetsDirectory>$(MSBuildProjectDirectory)\dist</PublishAssetsDirectory>
+		<TypeScriptDebuggerEnabled>true</TypeScriptDebuggerEnabled>
+		<NodeExecutablePath>C:\Program Files\nodejs\node.exe</NodeExecutablePath>
+	</PropertyGroup>
 </Project>
