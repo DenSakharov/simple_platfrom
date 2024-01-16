@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PLM_System_Entities", "PLM_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQproducer", "RabbitMQproject\RabbitMQproducer.csproj", "{C8F31091-F4FC-4623-91F1-31535927F5CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQconsumer", "RabbitMQconsumer\RabbitMQconsumer.csproj", "{594B8C06-0711-468E-A6F6-00B293E0C7AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQconsumer", "RabbitMQconsumer\RabbitMQconsumer.csproj", "{594B8C06-0711-468E-A6F6-00B293E0C7AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationProject", "AuthenticationProject\AuthenticationProject.csproj", "{B11CD0FD-7D16-4E81-BA15-3F977477CB77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{594B8C06-0711-468E-A6F6-00B293E0C7AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{594B8C06-0711-468E-A6F6-00B293E0C7AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{594B8C06-0711-468E-A6F6-00B293E0C7AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B11CD0FD-7D16-4E81-BA15-3F977477CB77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B11CD0FD-7D16-4E81-BA15-3F977477CB77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B11CD0FD-7D16-4E81-BA15-3F977477CB77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B11CD0FD-7D16-4E81-BA15-3F977477CB77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
