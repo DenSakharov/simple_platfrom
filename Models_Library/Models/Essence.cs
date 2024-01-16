@@ -3,6 +3,6 @@
     public class Essence : ObjectParent
     {
         public string Description { get; set; }
-        public string Type { get; set; }
+        public int Owner {  get; set; } 
     }
 }

@@ -13,4 +13,8 @@
   <ItemGroup>
     <None Include=".vscode\launch.json" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\Essencies\" />
+    <Folder Include="src\Registration\" />
+  </ItemGroup>
 </Project>

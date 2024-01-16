@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import axios from 'axios'
 import React from 'react';
+import Escencies_table from './Essencies/essence';
+import { register } from 'module';
+import RegistrationForm from './Registration/RegistrationForm';
 function App() {
     // использование контекста сервиса аутентификации
     const [isAuthenticated, setAuthenticated] = useState(false);
@@ -10,15 +13,9 @@ function App() {
     const [data, setData] = useState('');
     const [loading, setLoading] = useState(false);
     const [token, setToken] = useState('');
-    const logoutUser = () => {
-        // Реализуйте функцию для выхода пользователя
-        // Это может включать в себя вызов сервиса аутентификации для разрушения токена
-        setAuthenticated(false);
-    };
 
-    const setExpired = () => {
-        // Реализуйте функцию для установки истекшего токена
-        // Может потребоваться вызов сервиса аутентификации с определенным токеном
+    const logoutUser = () => {
+        setAuthenticated(false);
     };
 
     const sendLoginData = async () => {
@@ -33,7 +30,6 @@ function App() {
                 },
             });
 
-
             setToken(response.data);
             // Установите флаг аутентификации
             setAuthenticated(true);
@@ -43,23 +39,37 @@ function App() {
             setLoading(false);
         }
     };
-
-    const getData = async () => {
-        try {
+    /*
+    const registration = async () =>
+    {
+        try
+        {
             setLoading(true);
 
-            // Реализуйте функцию для получения данных с сервера
-            //const response = await authService.getData();
-
-            //// Ваш код для обработки ответа от сервера
-            setData("test");
-
-        } catch (error) {
-            console.error('Ошибка получения данных:', error);
+            const response = await axios.get('https://localhost:5001/api/login/register', {
+                params: {
+                    Email: login+"@test.ru",
+                    Password: password,
+                },
+            });
+        }
+        catch (error) {
+            console.error('Ошибка регистрации:', error);
         } finally {
             setLoading(false);
         }
+    }
+    */
+    // Состояние, которое отвечает за видимость формы
+    const [showForm, setShowForm] = useState(false);
+
+    // Функция, которая будет вызываться при нажатии на кнопку "Показать форму"
+    const handleShowFormClick = () => {
+        // Устанавливаем showForm в true, чтобы показать форму
+        setShowForm((prevShowForm) => !prevShowForm);
     };
+    const [entities, setEntities] = useState([]);
+
     return (
         <div>
             {
@@ -67,8 +77,6 @@ function App() {
                     ? (
                         <div>
                             Вы вошли в систему
-                            <br />
-                            <br />
                             <button
                                 style={{
                                     marginRight: 16,
@@ -78,19 +86,17 @@ function App() {
                             >
                                 Выйти
                             </button>
-
-                            <button
-                                type="button"
-                                onClick={setExpired}
-                            >
-                                Просрочить токен
-                            </button>
                             <br />
-                            Токен: {token}
+                            <div>
+                                <Escencies_table entities={entities} /> 
+                            </div>
+                            {/*Токен: {token}*/}
                         </div>
                     )
                     : (
                         <div>
+                            <div>
+
                             Логин
                             <br />
                             <input value={login} onChange={(e) => setLogin(e.target.value)} />
@@ -98,21 +104,18 @@ function App() {
                             Пароль
                             <br />
                             <input value={password} onChange={(e) => setPassword(e.target.value)} />
-                            <br />
-                            <br />
                             <button type="button" onClick={sendLoginData}>Войти</button>
+                            </div>
+                            <div>
+                                <button onClick={handleShowFormClick}>
+                                    {showForm ? 'Скрыть форму регистрации' : 'Показать форму регистрации'}
+                                </button>
+                                {showForm && <RegistrationForm />}
+                            </div>
                         </div>
                     )
             }
-            <br />
-            <br />
-            <button
-                type="button"
-                onClick={getData}
-            >
-                Получить данные
-            </button>
-            <br />
+          
             <br />
             {loading ? 'Загрузка...' : data}
         </div>

@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Models_Library.Models;
+using PLM_System.Controllers;
 
 namespace PLM_System.Services
 {
@@ -18,18 +19,20 @@ namespace PLM_System.Services
             _configuration = configuration;
             _userManager = userManager;
         }
-        public async Task<string> RegisterAsync(RegisterRequest model)
+        public async Task<string> RegisterAsync(//RegisterRequest model,
+            RegisterInfoFromBody registerInfoFromBody)
         {
             var user = new Person
             {
                 Id = Guid.NewGuid().ToString(),
-                Email = model.Email,
+                Email = registerInfoFromBody.login+"@test.ru",
                 kit_of_access_to_areas=new List<string> { "area1"},
-                Role ="test",
-                UserName = "test",
+                Role = registerInfoFromBody.position,
+                UserName = registerInfoFromBody.login,
+                NormalizedUserName = registerInfoFromBody.surname +" "+registerInfoFromBody.name,
                 // Добавьте другие свойства, которые вы хотите заполнить при регистрации
             };
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user,registerInfoFromBody.password);
 
             if (result.Succeeded)
             {
@@ -38,13 +41,15 @@ namespace PLM_System.Services
             }
             else
             {
+                StringBuilder sb = new StringBuilder();
                 // Выведите ошибки в лог или обработайте их соответственно
                 foreach (var error in result.Errors)
                 {
                     // Логируйте или обрабатывайте ошибки по своему усмотрению
                     Console.WriteLine($"Error: {error.Code}, Description: {error.Description}");
+                    sb.AppendLine($"Error: {error.Code}, Description: {error.Description}");
                 }
-                return null;
+                return sb.ToString();
             }
         }
         public async Task<string> AuthenticateAsync(LoginRequest model)

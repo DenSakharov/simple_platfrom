@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using PLM_System.Services;
+using Newtonsoft.Json.Linq;
+using Swashbuckle.AspNetCore.Annotations;
+using Swashbuckle.Examples;
 
 namespace PLM_System.Controllers
 {
@@ -19,25 +21,60 @@ namespace PLM_System.Controllers
             _authService = authService;
         }
         [AllowAnonymous]
-        [HttpGet("register")]
+        [HttpPost("register")]
+        [SwaggerResponse(200, "Success")]
+        [SwaggerOperation("Register")]
+        [SwaggerOperationFilter(typeof(ExamplesOperationFilter))]
         /// https://localhost:5001/api/login/register?Email=test@test.ru&Password=yourpasswordA
-        public async Task<IActionResult> Register([FromQuery] RegisterRequest model)
+        public async Task<IActionResult> Register(//[FromQuery] RegisterRequest model, 
+            [FromBody] RegistrationData registrationData)
         {
-            var token = await _authService.RegisterAsync(model);
-
-            if (token == null)
+            try
             {
-                return BadRequest("Не удалось зарегистрировать пользователя");
-            }
+                if (registrationData == null)
+                {
+                    return BadRequest("Invalid JSON format");
+                }
 
-            return Ok(new { Token = token });
+                var newMan = new RegisterInfoFromBody
+                {
+                    /*
+                    age = (int)jsonObject["ageBody"],
+                    name = (string)jsonObject["nameBody"],
+                    surname = (string)jsonObject["surnameBody"],
+                    login = (string)jsonObject["loginBody"],
+                    position = (string)jsonObject["positionBody"],
+                    email = (string)jsonObject["Email"],
+                    password = (string)jsonObject["Password"],
+                    */
+                   name= registrationData.Name,
+                    email=registrationData.Email,
+                   password= registrationData.Password,
+                    position=registrationData.Position,
+                    surname=registrationData.Surname,
+                    login=registrationData.Login,
+                    age=registrationData.Age,
+                };
+                var token = await _authService.RegisterAsync(//model,
+                    newMan);
+
+                if (token == null)
+                {
+                    return BadRequest("Не удалось зарегистрировать пользователя");
+                }
+
+                return Ok(new { Token = token });
+            }
+            catch(Exception ex) 
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         /// <summary>
-        /// https://localhost:5001/api/login/authenticate?Email=test@test.ru&Password=yourpasswordA
+        ///Аутентификация https://localhost:5001/api/login/authenticate?Email=test@test.ru&Password=yourpasswordA
         /// </summary>
         /// <param name="model"></param>
-        /// Аутентификация
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet("authenticate")]
@@ -52,18 +89,6 @@ namespace PLM_System.Controllers
 
             return Ok(token);
         }
-
-        [Authorize]
-        [HttpGet("userinfo")]
-        public IActionResult GetUserInfo()
-        {
-            // Получение информации о текущем пользователе
-            var username = User.FindFirst(ClaimTypes.Name)?.Value;
-            var roles = User.FindAll(ClaimTypes.Role)?.Select(c => c.Value);
-
-            return Ok(new { Username = username, Roles = roles });
-        }
-
         [Authorize]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
@@ -72,5 +97,32 @@ namespace PLM_System.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok(new { Message = "Logout successful" });
         }
+    }
+    public class RegisterRequest
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        // Добавьте дополнительные поля по необходимости
+    }
+    public class RegistrationData
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Login { get; set; }
+        public int Age { get; set; }
+        public string Position { get; set; }
+    }
+
+    public class RegisterInfoFromBody
+    {
+        public int age { get; set; }
+        public string name { get; set; }
+        public string surname { get; set; }
+        public string login { get; set; }
+        public string position { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
     }
 }
